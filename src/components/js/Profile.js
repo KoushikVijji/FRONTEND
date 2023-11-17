@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../css/Profile.css';
 import axios from 'axios';
-import { authActions } from '../../store';
-import { useDispatch, useSelector } from 'react-redux';
 
-const Profile = () => {
-    const dispatch = useDispatch();
-    const isLoggedIn = useSelector(state => state.isLoggedIn);
+const Profile = ({ setIsLoggedIn }) => {
     const location = useLocation();
     const [user,setUser] = useState('');
     useEffect(() => {
@@ -23,8 +19,9 @@ const Profile = () => {
         try {
             const res = await axios.delete(`https://bloggify-backend.onrender.com/api/user/deleteAccount`, {data: {email:user.email}});
             if(res.status === 200) {
-                dispatch(authActions.logout());
-                alert("Account Delted Successfully.");
+                localStorage.removeItem('userId');
+                setIsLoggedIn(false);
+                alert("Account Deleted Successfully.");
             }
         } 
         catch(err) {
@@ -32,8 +29,6 @@ const Profile = () => {
         }
     };
   return (
-    <>
-    {isLoggedIn && 
     <table className='profile-table'>
         <caption>
             <div className='up'>
@@ -73,8 +68,7 @@ const Profile = () => {
             <td className='right'><button className='dbtn' onClick={handleAccDelete}>Delete Account</button></td>
         </tr>
         </tfoot>
-    </table>}
-    </>
+    </table>
   )
 }
 
