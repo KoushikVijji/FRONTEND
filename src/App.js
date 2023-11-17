@@ -10,6 +10,7 @@ import { authActions } from "./store";
 import SignupForm from "./components/js/SignupForm";
 import LoginForm from "./components/js/LoginForm";
 import Profile from "./components/js/Profile";
+import ChangePwd from "./components/js/ChangePwd";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
               <Route path="/myBlogs" element={<UserBlogs />} />
               <Route path="/myBlogs/:id" element={<BlogDetails />} />
               <Route path="/profile" element={<Profile />}/>
+              <Route path="/ChangePwd" element={<ChangePwd />}/>
             </React.Fragment>
           )}
           <Route

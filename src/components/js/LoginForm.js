@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/Form.css'
+import '../css/Form.css';
 
 const LoginForm = () => {
     const navigate = useNavigate();

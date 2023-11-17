@@ -40,7 +40,12 @@ const SignupForm = () => {
       if (err.response && err.response.status === 400) {
         alert("User Already Exists! Try Logging In");
         navigate('login');
-      } else {
+      }
+      else if (err.response && err.response.status === 403){
+        alert("OTP Verification needs to be completed.Please complete now");
+        setStep('otpVerification');
+      } 
+      else {
         alert('Error signing up. Please try again.');
       }
     }

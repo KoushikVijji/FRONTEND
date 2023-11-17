@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../css/Profile.css';
+import axios from 'axios';
+import { authActions } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.isLoggedIn);
     const location = useLocation();
     const [user,setUser] = useState('');
     useEffect(() => {
@@ -14,8 +19,21 @@ const Profile = () => {
             }
         }
     },[location]);
+    const handleAccDelete = async() => {
+        try {
+            const res = await axios.delete(`http://localhost:4000/api/user/deleteAccount`, {data: {email:user.email}});
+            if(res.status === 200) {
+                dispatch(authActions.logout());
+                alert("Account Delted Successfully.");
+            }
+        } 
+        catch(err) {
+            console.log(err);
+        }
+    };
   return (
     <>
+    {isLoggedIn && 
     <table className='profile-table'>
         <caption>
             <div className='up'>
@@ -51,11 +69,11 @@ const Profile = () => {
         </tbody>
         <tfoot>
         <tr className="no-bg">
-            <td className='left'><button className='cpbtn'>Change Password</button></td>
-            <td className='right'><button className='dbtn'>Delete Account</button></td>
+            <td className='left'><Link to="/ChangePwd"><button className='cpbtn' >Change Password</button></Link></td>
+            <td className='right'><button className='dbtn' onClick={handleAccDelete}>Delete Account</button></td>
         </tr>
         </tfoot>
-    </table>
+    </table>}
     </>
   )
 }
