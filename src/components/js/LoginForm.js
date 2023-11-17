@@ -20,7 +20,7 @@ const LoginForm = () => {
     };
     const sendRequest = async () => {
         try {
-          const res = await axios.post(`http://localhost:4000/api/user/login`, {
+          const res = await axios.post(`https://bloggify-backend.onrender.com/api/user/login`, {
             email: inputs.email,
             password: inputs.password,
           });

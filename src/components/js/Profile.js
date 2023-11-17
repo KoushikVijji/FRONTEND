@@ -21,7 +21,7 @@ const Profile = () => {
     },[location]);
     const handleAccDelete = async() => {
         try {
-            const res = await axios.delete(`http://localhost:4000/api/user/deleteAccount`, {data: {email:user.email}});
+            const res = await axios.delete(`https://bloggify-backend.onrender.com/api/user/deleteAccount`, {data: {email:user.email}});
             if(res.status === 200) {
                 dispatch(authActions.logout());
                 alert("Account Delted Successfully.");

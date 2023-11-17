@@ -5,7 +5,7 @@ import Blog from './Blog';
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   const sendRequest = async () => {
-    const res = await axios.get("http://localhost:4000/api/blog").catch(err => alert(err));
+    const res = await axios.get("https://bloggify-backend.onrender.com/api/blog").catch(err => alert(err));
     const data = await res.data;
     return data;
   };
